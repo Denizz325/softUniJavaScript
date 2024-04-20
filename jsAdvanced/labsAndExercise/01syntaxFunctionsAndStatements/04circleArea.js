@@ -14,4 +14,3 @@ function solve(param){
 
 }
 
-solve("num")
