@@ -1,7 +1,9 @@
 function sum(start, stop) {
+    let num1 = Number(start);
+    let num2 = Number(stop);
     let result = 0;
 
-    for (let i = start; i <= stop; i++) {
+    for (let i = num1; i <= num2; i++) {
         result += i;
     }
 
