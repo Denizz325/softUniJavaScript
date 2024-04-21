@@ -16,7 +16,4 @@ function previousDay(year, month, day) {
     console.log(formattedDate);
 }
 
-// Example usage:
-
-
 previousDay(2016, 9, 30)
