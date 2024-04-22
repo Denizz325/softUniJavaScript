@@ -52,7 +52,5 @@ function cooking(num, oper1, oper2, oper3, oper4, oper5) {
                 break;
         }
         }  
-    }
+}
 
-cooking('32', 'chop', 'chop', 'chop', 'chop', 'chop')
-// cooking('9', 'dice', 'spice', 'chop', 'bake','fillet')
