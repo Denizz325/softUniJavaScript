@@ -1,4 +1,4 @@
-// ne rabotiii
+
 
 
 function solve(arr) {
@@ -10,7 +10,7 @@ function solve(arr) {
         }
     }
 
-    formatedResult = result.join(" ")
+    formatedResult = result.join(" ");
 
     return formatedResult;
 }
