@@ -1,0 +1,21 @@
+function solve(arr) {
+    let number = 1;
+    let result = [];
+
+    arr.forEach((el) => {
+        if (el == 'add') {
+            result.push(number);
+        } else {
+            result.pop();
+        }
+
+        number += 1;
+        
+    });
+
+    if (result.length == 0) {
+        console.log("Empty")
+    }   else {
+        console.log(result.join('\n'));
+    }
+}
