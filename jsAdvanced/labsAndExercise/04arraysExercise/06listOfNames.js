@@ -1,7 +1,9 @@
 function solve(arr) {
-    sortedArr = arr.sort()
+    sortedArr = arr.sort();
+    let orderNumber = 1;
 
-    for (let i = 0; i < arr.length; i++) {
-        console.log(`${i+1}.${sortedArr[i]}`)
+    for (el of arr) {
+        console.log(`${orderNumber}.${el}`);
+        orderNumber++;
     }
 }
