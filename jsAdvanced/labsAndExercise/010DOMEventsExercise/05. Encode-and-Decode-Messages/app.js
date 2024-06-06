@@ -1,4 +1,4 @@
-//Някъде има грешка
+
 
 
 
@@ -7,12 +7,10 @@ function encodeAndDecodeMessages() {
     const encodeBtn = Btns[0].addEventListener('click', onEncode);
     const decodeBtn = Btns[1].addEventListener('click', onDecode);
 
-    let decodeMessage = '';
-    let encodeMessage = '';
-
     function onEncode(ev) {
         const parent = ev.target.parentNode;
         const message = parent.querySelector('textarea');
+        let decodeMessage = '';
         
 
         for (let i = 0; i < message.value.length; i++) {
@@ -24,14 +22,23 @@ function encodeAndDecodeMessages() {
             decodeMessage += shiftedValue;      
         }
 
-        parent.parentNode.querySelectorAll('textarea')[1].value = decodeMessage;
-        message.value = '';
 
+        const secondTextArea = parent.parentNode.querySelectorAll('textarea')[1]
+        if ( secondTextArea.value == '') {
+             secondTextArea.value = decodeMessage;
+             decodeMessage = ''
+        } else {
+            secondTextArea.value = ''
+            secondTextArea.value = decodeMessage;
+        }
+        
+        message.value = '';
     }
 
     function onDecode(ev) {
         const parent = ev.target.parentNode;
         const message = parent.querySelector('textarea');
+        let encodeMessage = '';
         
 
         for (let i = 0; i < message.value.length; i++) {
