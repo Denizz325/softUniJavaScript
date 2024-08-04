@@ -1,97 +1,118 @@
-window.addEventListener("load", solve);
+window.addEventListener('load', solve);
 
 function solve() {
-    let ticketNumElement = document.getElementById("num-tickets");
-    let seatingElement = document.getElementById("seating-preference");
-    let nameElement = document.getElementById("full-name");
-    let emailElement = document.getElementById("email");
-    let phoneElement = document.getElementById("phone-number");
-    let btnElement = document.getElementById("purchase-btn");
-    let ticketListElement = document.getElementById("ticket-preview");
-    let purchasedListElement = document.getElementById("ticket-purchase");
-    let bottomElement = document.querySelector(".bottom-content");
-  
-    btnElement.addEventListener("click", onAdd);
-  
+
+
+    addButton = document.getElementById('add');
+    addButton.addEventListener('click', onAdd);
+    totalPrice = 0
+
     function onAdd(e) {
-      e.preventDefault();
-      if (
-        ticketNumElement.value == "" ||
-        seatingElement.value == "" ||
-        nameElement.value == "" ||
-        emailElement.value == "" ||
-        phoneElement.value == ""
-      ) {
-        return;
-      }
-  
-      let articleElementInfo = document.createElement("article");
-      let liElementInfo = document.createElement("li");
-      liElementInfo.setAttribute("class", "ticket-purchase");
-      let btnContainer = document.createElement("div");
-      btnContainer.setAttribute("class", "btn-container");
-  
-      let ticketNumber = document.createElement("p");
-      ticketNumber.textContent = `Count: ${ticketNumElement.value}`;
-  
-      let seatingPref = document.createElement("p");
-      seatingPref.textContent = `Preference: ${seatingElement.value}`;
-  
-      let fullName = document.createElement("p");
-      fullName.textContent = `To: ${nameElement.value}`;
-  
-      let email = document.createElement("p");
-      email.textContent = `Email: ${emailElement.value}`;
-  
-      let pNumber = document.createElement("p");
-      pNumber.textContent = `Phone Number: ${phoneElement.value}`;
-  
-      let editBtn = document.createElement("button");
-      editBtn.setAttribute("class", "edit-btn");
-      editBtn.textContent = "Edit";
-  
-      let nextBtn = document.createElement("button");
-      nextBtn.setAttribute("class", "next-btn");
-      nextBtn.textContent = "Next";
-  
-      articleElementInfo.appendChild(ticketNumber);
-      articleElementInfo.appendChild(seatingPref);
-      articleElementInfo.appendChild(fullName);
-      articleElementInfo.appendChild(email);
-      articleElementInfo.appendChild(pNumber);
-  
-      btnContainer.appendChild(editBtn);
-      btnContainer.appendChild(nextBtn);
-  
-      liElementInfo.appendChild(articleElementInfo);
-      liElementInfo.appendChild(btnContainer);
-  
-      ticketListElement.appendChild(liElementInfo);
-  
-      let editedticketNumElement = ticketNumElement.value;
-      let editedseatingElement = seatingElement.value;
-      let editednameElement = nameElement.value;
-      let editedemailElement = emailElement.value;
-      let editedphoneElement = phoneElement.value;
-  
-      ticketNumElement.value = "";
-      seatingElement.value = "";
-      nameElement.value = "";
-      emailElement.value = "";
-      phoneElement.value = "";
-  
-      btnElement.disabled = true;
-  
-      editBtn.addEventListener("click", onEdit);
-  
-      function onEdit() {
-        ticketNumElement.value = editedticketNumElement;
-        seatingElement.value = editedseatingElement;
-        nameElement.value = editednameElement;
-        emailElement.value = editedemailElement;
-        phoneElement.value = editedphoneElement;
-  
-        liElementInfo.remove();
-        btnElement.disabled = false;
-      }
+
+        e.preventDefault();
+
+        table = document.getElementById('information')
+
+        modelInput = document.getElementById('model').value;
+        yearInput = document.getElementById('year').value;
+        descriptionInput = document.getElementById('description').value;
+        priceInput = document.getElementById('price').value;
+
+        totalPrice +=  Number(priceInput)
+
+        trElement1 = document.createElement('tr');
+        trElement1.classList.add('info')
+
+        tdName = document.createElement('td');
+        tdName.textContent = modelInput;
+        trElement1.appendChild(tdName)
+        
+
+        tdPrice = document.createElement('td');
+        tdPrice.textContent = Number(priceInput).toFixed(2);
+        trElement1.appendChild(tdPrice);
+
+
+        tdElWithBtn = document.createElement('td');
+
+        moreBtn = document.createElement('button')
+        moreBtn.classList.add('moreBtn');
+        moreBtn.textContent = 'More Info'
+        moreBtn.addEventListener('click', moreInfo)
+
+        buyBtn = document.createElement('button')
+        buyBtn.classList.add('buyBtn');
+        buyBtn.textContent = 'Buy it'
+        buyBtn.addEventListener('click', buyIt)
+
+        tdElWithBtn.appendChild(moreBtn);
+        tdElWithBtn.appendChild(buyBtn);
+        trElement1.appendChild(tdElWithBtn);
+
+
+        table.appendChild(trElement1)
+
+        document.getElementById('model').value = '';
+        document.getElementById('year').value = '';
+        document.getElementById('description').value = '';
+        document.getElementById('price').value = '';
+
+
+        trElement2 = document.createElement('tr');
+        trElement2.classList.add('hide');
+
+        tdDescription = document.createElement('td');
+        tdDescription.colSpan = 3;
+        tdDescription.textContent = `Description: ${descriptionInput}`;
+        trElement2.appendChild(tdDescription)
+
+
+        tdYear = document.createElement('td');
+        tdYear.textContent = `Year: ${yearInput}`;
+        trElement2.appendChild(tdYear);
+
+        trElement2.appendChild(tdDescription);
+        trElement2.style.display = 'none';
+
+        table.appendChild(trElement2);
+
+
+        
+
     }
+
+    function moreInfo(e) {
+        e.preventDefault();
+
+        let moreBtn = e.target;
+        let trElement2 = moreBtn.parentElement.parentElement.nextElementSibling;
+
+        if (moreBtn.textContent === 'More Info') {
+            moreBtn.textContent = 'Less Info';
+            trElement2.style.display = 'contents';
+        } else {
+            moreBtn.textContent = 'More Info';
+            trElement2.style.display = 'none';
+        }
+    }
+
+    function buyIt(e) {
+        e.preventDefault();
+
+        let buyBtn = e.target;
+        let row = buyBtn.parentElement.parentElement; // Parent <tr> element
+        let price = parseFloat(row.querySelector('td:nth-child(2)').textContent); // Get price from second <td> element
+
+        // Remove the row from the table
+        row.remove();
+
+        // Update total profit
+        let totalElement = document.querySelector('.total-price');
+        let currentTotal = parseFloat(totalElement.textContent);
+        let newTotal = currentTotal + price;
+        totalElement.textContent = newTotal.toFixed(2); // Update total price with 2 decimal places
+    }
+
+
+    
+}
