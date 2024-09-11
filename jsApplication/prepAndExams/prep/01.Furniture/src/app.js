@@ -16,7 +16,6 @@ document.getElementById('logoutBtn').addEventListener('click', onLogout);
 
 page(decorateContext)
 page('/', catalogPage)
-
 page('/details/:id', detailsPage)
 page('/create', createPage)
 page('/register', registerPage)
